@@ -54,6 +54,31 @@ class playerScoreMatch(db.Model):
     match_id = db.Column(db.Integer, db.ForeignKey('matches.id'), nullable=False)
     match = db.relationship("Matches", back_populates='playerscoreboard')
 
+class playerOverallStats(db.Model):
+    id = db.Column()
+    steamid = db.Column()
+    userName = db.Column()
+    kills = db.Column()
+    deaths = db.Column()
+    assists = db.Column()
+    hs = db.Column()
+    hsPercent = db.Column()
+    adr = db.Column()
+    kast = db.Column()
+    kdRatio = db.Column()
+    FkDiff = db.Column()
+    round2k = db.Column()
+    round3k = db.Column()
+    round4k = db.Column()
+    round5k = db.Column()
+    totalDmg = db.Column()
+    tradeKills = db.Column()
+    tradeDeaths = db.Column()
+    ctKills = db.Column()
+    tKills = db.Column()
+    effectiveFlashes = db.Column()
+    avgFlashDuration = db.Column()
+
 @app.route("/MatchData", methods=["POST"])
 def get_match():
 
@@ -112,9 +137,9 @@ def get_match():
             tradekill = player[i]["TradeKills"],
             tradedeaths = player[i]["TradeDeath"],
         )
-       print(new_player.steamId)
-
-
+       new_player.match = new_match
+       db.session.add(new_player)
+    
     return jsonify(Math_json)
 
 if __name__ == "__main__":
