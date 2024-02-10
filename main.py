@@ -70,8 +70,7 @@ def get_match():
     for i in rounds:
 
         if i["ScoreA"] == 0 and i["ScoreB"] == 0:
-            continue 
-
+            continue    
         new_round = Rounds(
         econTeamA = i["EconA"],
         econTeamB = i["EconB"],
@@ -83,14 +82,37 @@ def get_match():
         teamBname = i["TeamNameB"],
         scoreA = i["ScoreA"],
         scoreB = i["ScoreB"],
-        
-        )
 
+        )   
+        new_round.match = new_match
         db.session.add(new_round)
 
-    
+    player = Math_json["Match"]["Players"]
 
-    for x in 
+    for i in player:
+       new_player = playerScoreMatch (
+            steamId = i,
+            impact = player[i]["ImpactPerRnd"],
+            userName = player[i]["UserName"],
+            kills = player[i]["Kills"],
+            deaths = player[i]["Deaths"],
+            assists = player[i]["Assists"],
+            hs  = player[i]["HS"],
+            hsPercent = player[i]["HeadPercent"],
+            adr = player[i]["ADR"],
+            kast = player[i]["KAST"],
+            kdratio = player[i]["KDRatio"],
+            firstkill = player[i]["Firstkill"],
+            firstdeath = player[i]["FirstDeath"],
+            round2k = player[i]["Round2k"],
+            round3k = player[i]["Round3k"],
+            round4k = player[i]["Round4k"],
+            round5k = player[i]["Round5k"],
+            totaldmg = player[i]["Totaldmg"],
+            tradekill = player[i]["TradeKills"],
+            tradedeaths = player[i]["TradeDeath"],
+        )
+       print(new_player.steamId)
 
 
     return jsonify(Math_json)
